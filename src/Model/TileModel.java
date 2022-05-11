@@ -26,11 +26,11 @@ public class TileModel {
         ImageIcon imgIcon;
         switch (tileType) {
             case 0:
-                imgIcon = new ImageIcon("C:\\Users\\Alexander\\IdeaProjects\\aoopProject\\src\\assets\\blank.png");
+                imgIcon = new ImageIcon("src/assets/blank.png");
                 setMovable(true);
                 break;
             case 1:
-                imgIcon = new ImageIcon("C:\\Users\\Alexander\\IdeaProjects\\aoopProject\\src\\assets\\blankmarked.png");
+                imgIcon = new ImageIcon("src/assets/blankmarked.png");
                 setMovable(true);
                 break;
             case 2:
