@@ -1,6 +1,5 @@
 package View;
 
-import Controller.TileController;
 import Model.TileModel;
 
 import javax.swing.*;
@@ -12,7 +11,6 @@ public class Tile extends JLabel {
 
     public Tile(int tileType) {
         tileModel = new TileModel();
-        TileController tileController = new TileController(tileModel, this);
         tileModel.setTileType(tileType);
         setTileImage(tileModel.getTileImage());
     }
@@ -21,16 +19,6 @@ public class Tile extends JLabel {
         tileModel.setTileType(tileType);
         setTileImage(tileModel.getTileImage());
     }
-
-    public void setTileImage(Image tileImage) {
-        setIcon(new ImageIcon(tileImage));
-        repaint();
-    }
-
-    public ImageIcon getTileImage() {
-        return tileModel.getTileImage();
-    }
-
 
     public void setTileImage(ImageIcon imgIcon) {
         setVisible(true);
@@ -41,6 +29,9 @@ public class Tile extends JLabel {
         repaint();
     }
 
+    public ImageIcon getTileImage() {
+        return tileModel.getTileImage();
+    }
     public int getTileID() {
         return tileModel.getTileID();
     }
