@@ -4,25 +4,15 @@ import javax.swing.*;
 
 public class TileModel {
     private boolean movable;
-    private boolean isOccupied;
     private int tileType;
     private ImageIcon image;
-
-    public int getTileType() {
-        return tileType;
-    }
 
     public void setMovable(boolean b) {
         this.movable = b;
     }
 
-    public boolean getMovable() {
-        return movable;
-    }
-
     public void setTileType(int tileType) {
         this.tileType = tileType;
-        this.isOccupied = false;
         ImageIcon imgIcon;
         switch (tileType) {
             case 0:
