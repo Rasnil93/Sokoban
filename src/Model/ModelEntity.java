@@ -14,10 +14,6 @@ public abstract class ModelEntity {
         this.pcs.removePropertyChangeListener(listener);
     }
 
-    public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
-        this.pcs.firePropertyChange(propertyName, oldValue, newValue);
-    }
-
     public void firePropertyChange(String propertyName) {
         this.pcs.firePropertyChange(propertyName, null, null);
     }

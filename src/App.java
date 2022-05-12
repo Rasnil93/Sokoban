@@ -3,16 +3,17 @@ import Controller.MapController;
 import View.GameConsoleView;
 import View.MapView;
 import Model.MapModel;
-import View.ViewEntity;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class App extends Game implements ViewEntity {
+public class App extends Game implements PropertyChangeListener {
     private JComponent mainView;
     private KeyListener keyListener;
+    private MapModel mapModel;
 
     public App(){
         init();
@@ -30,6 +31,7 @@ public class App extends Game implements ViewEntity {
     @Override
     public void init() {
         MapModel mapModel = new MapModel();
+        this.mapModel = mapModel;
         MapView mapView = new MapView(mapModel);
         GameConsoleView gameConsole = new GameConsoleView(mapModel);
         GameConsoleController gameConsoleController = new GameConsoleController(gameConsole, mapModel);

@@ -1,7 +1,6 @@
 package Model;
 
 import View.Tile;
-
 import java.io.*;
 import java.util.ArrayList;
 
@@ -17,14 +16,6 @@ public class MapModel extends ModelEntity{
     private int boxesUntilWin;
     private int boxesOnMap;
     private int movesMade;
-
-    public int getPlayerX() {
-        return playerX;
-    }
-
-    public int getPlayerY() {
-        return playerY;
-    }
 
     public MapModel(){
         this.mapID = 0;
@@ -126,28 +117,38 @@ public class MapModel extends ModelEntity{
         switch (direction) {
             case "up":
                 moveToThisTile = mapGrid.get(playerY - 1).get(playerX);
-                moveBoxToNextTile = mapGrid.get(playerY - 2).get(playerX);
                 moveToY = -1;
                 break;
             case "down":
                 moveToThisTile = mapGrid.get(playerY + 1).get(playerX);
-                moveBoxToNextTile = mapGrid.get(playerY + 2).get(playerX);
                 moveToY = 1;
                 break;
             case "left":
                 moveToThisTile = mapGrid.get(playerY).get(playerX - 1);
-                moveBoxToNextTile = mapGrid.get(playerY).get(playerX - 2);
                 moveToX = -1;
                 break;
             case "right":
                 moveToThisTile = mapGrid.get(playerY).get(playerX + 1);
-                moveBoxToNextTile = mapGrid.get(playerY).get(playerX + 2);
                 moveToX = 1;
                 break;
         }
 
         if (moveToThisTile.isMovable()) {
             if(moveToThisTile.getTileID() == 2 || moveToThisTile.getTileID() == 3){
+                switch (direction) {
+                    case "up":
+                        moveBoxToNextTile = mapGrid.get(playerY - 2).get(playerX);
+                        break;
+                    case "down":
+                        moveBoxToNextTile = mapGrid.get(playerY + 2).get(playerX);
+                        break;
+                    case "left":
+                        moveBoxToNextTile = mapGrid.get(playerY).get(playerX - 2);
+                        break;
+                    case "right":
+                        moveBoxToNextTile = mapGrid.get(playerY).get(playerX + 2);
+                        break;
+                }
                 if(moveBoxToNextTile.isMovable() && moveBoxToNextTile.getTileID() != 2 && moveBoxToNextTile.getTileID() != 3){
                     if (moveToThisTile.getTileID() == 3) {
                         moveToThisTile.setTileType(1);
@@ -207,10 +208,11 @@ public class MapModel extends ModelEntity{
         }
     }
 
-    public void restart() {
-        mapGrid = getMapFromFile(0);
+    public void restart(int mapID) {
+        mapGrid = getMapFromFile(mapID);
         placePlayer();
         movesMade = 0;
+        this.mapID = mapID;
         firePropertyChange("restart");
     }
 
