@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.MapModel;
+import Model.ModelEntity;
 import View.MapView;
 
 import java.awt.event.KeyAdapter;

@@ -1,5 +1,7 @@
+import Controller.ButtonPanelController;
 import Controller.GameConsoleController;
 import Controller.MapController;
+import View.ButtonPanelView;
 import View.GameConsoleView;
 import View.MapView;
 import Model.MapModel;
@@ -39,6 +41,10 @@ public class App extends Game implements PropertyChangeListener {
         GameConsoleView gameConsole = new GameConsoleView(mapModel);
         GameConsoleController gameConsoleController = new GameConsoleController(gameConsole, mapModel);
 
+        //buttonPanel
+        ButtonPanelView buttonPanelView = new ButtonPanelView();
+        ButtonPanelController buttonPanelController = new ButtonPanelController(buttonPanelView, mapModel);
+
         //add listeners to mapModel
         mapModel.addPropertyChangeListener(mapController);
         mapModel.addPropertyChangeListener(gameConsoleController);
@@ -47,6 +53,7 @@ public class App extends Game implements PropertyChangeListener {
         //add keylistener to main frame
         super.addKeyListener(mapController);
 
+        mainView.add(buttonPanelView);
         mainView.add(gameConsole);
         mainView.add(mapView);
         mainView.validate();
@@ -76,6 +83,9 @@ public class App extends Game implements PropertyChangeListener {
             gameWon();
         }
         if(evt.getPropertyName().equals("restart")){
+            super.reset();
+        }
+        if (evt.getPropertyName().equals("focusFrame")){
             super.reset();
         }
 

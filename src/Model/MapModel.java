@@ -1,8 +1,5 @@
 package Model;
 
-import View.Tile;
-
-import java.beans.PropertyChangeEvent;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -22,7 +19,7 @@ public class MapModel extends ModelEntity {
         getMapFromFile(mapID);
     }
 
-    public ArrayList<ArrayList<Integer>> getMapFromFile(int level) {
+    public void getMapFromFile(int level) {
         if (mapGridInt != null){
             mapGridInt.clear();
         }
@@ -34,7 +31,7 @@ public class MapModel extends ModelEntity {
             int totalBoxes = 0;
             String st;
             while ((st = reader.readLine()) != null){
-                ArrayList<Integer> row = new ArrayList<Integer>();
+                ArrayList<Integer> row = new ArrayList<>();
                 for (int i = 0; i < st.length(); i++) {
                     int tileID = Integer.parseInt(String.valueOf(st.charAt(i)));
                     if (tileID == 1) {
@@ -69,7 +66,6 @@ public class MapModel extends ModelEntity {
         }
         this.widthOfMap = mapGridInt.get(0).size();
         this.heightOfMap = mapGridInt.size();
-        return mapGridInt;
     }
 
     public int getMapID() {
@@ -90,30 +86,42 @@ public class MapModel extends ModelEntity {
         return movesMade;
     }
 
+    public void movePlayerUp() {
+        firePropertyChange("up");
+        firePropertyChange("focusFrame");
+    }
+
+    public void movePlayerDown() {
+        firePropertyChange("down");
+        firePropertyChange("focusFrame");
+    }
+
+    public void movePlayerLeft() {
+        firePropertyChange("left");
+        firePropertyChange("focusFrame");
+    }
+
+    public void movePlayerRight() {
+        firePropertyChange("right");
+        firePropertyChange("focusFrame");
+    }
+
+
     public void movePlayer(String direction) {
         movesMade++;
         checkWin();
         switch (direction) {
-            case "up":
-                playerY--;
-                break;
-            case "down":
-                playerY++;
-                break;
-            case "left":
-                playerX--;
-                break;
-            case "right":
-                playerX++;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + direction);
+            case "up" -> playerY--;
+            case "down" -> playerY++;
+            case "left" -> playerX--;
+            case "right" -> playerX++;
+            default -> throw new IllegalStateException("Unexpected value: " + direction);
         }
         firePropertyChange("updateScoreView");
     }
 
     public void restart(int mapID) {
-        mapGridInt = getMapFromFile(mapID);
+        getMapFromFile(mapID);
         movesMade = 0;
         this.mapID = mapID;
         firePropertyChange("restart");
