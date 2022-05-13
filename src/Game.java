@@ -1,7 +1,5 @@
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
 
 abstract class Game extends JFrame implements Runnable {
     public abstract JComponent createMainFrame();
