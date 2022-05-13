@@ -30,19 +30,29 @@ public class App extends Game implements PropertyChangeListener {
 
     @Override
     public void init() {
+        //map
         MapModel mapModel = new MapModel();
-        this.mapModel = mapModel;
         MapView mapView = new MapView(mapModel);
+        MapController mapController = new MapController(mapModel, mapView);
+
+        //game console
         GameConsoleView gameConsole = new GameConsoleView(mapModel);
         GameConsoleController gameConsoleController = new GameConsoleController(gameConsole, mapModel);
-        MapController mapController = new MapController(mapModel, mapView);
+
+        //add listeners to mapModel
         mapModel.addPropertyChangeListener(mapController);
         mapModel.addPropertyChangeListener(gameConsoleController);
         mapModel.addPropertyChangeListener(this);
+
+        //add keylistener to main frame
         super.addKeyListener(mapController);
+
         mainView.add(gameConsole);
         mainView.add(mapView);
         mainView.validate();
+
+        this.mapModel = mapModel;
+        this.keyListener = mapController;
     }
 
     @Override

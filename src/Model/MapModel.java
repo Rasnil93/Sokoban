@@ -4,7 +4,7 @@ import View.Tile;
 import java.io.*;
 import java.util.ArrayList;
 
-public class MapModel extends ModelEntity{
+public class MapModel extends ModelEntity {
     private int mapID;
     private ArrayList<ArrayList<Tile>> mapGrid;
     private int playerX;
@@ -23,16 +23,10 @@ public class MapModel extends ModelEntity{
         placePlayer();
     }
 
-    public MapModel(int mapID) {
-        this.mapID = mapID;
-        getMapFromFile(mapID);
-    }
-
     public void placePlayer() {
         if (playerTile == null){
             Tile playerTile = new Tile(9);
-            Tile occupiedTile = mapGrid.get(playerY).get(playerX);
-            this.occupiedTile  = occupiedTile;
+            this.occupiedTile  = mapGrid.get(playerY).get(playerX);
             this.playerTile = playerTile;
         }
         else {

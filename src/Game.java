@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.KeyListener;
 
 abstract class Game extends JFrame implements Runnable {
-    private int level;
     public abstract JComponent createMainFrame();
     public abstract void init();
     public abstract void update();
