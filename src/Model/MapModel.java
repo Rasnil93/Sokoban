@@ -2,6 +2,7 @@ package Model;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MapModel extends ModelEntity {
     private int mapID;
@@ -124,7 +125,7 @@ public class MapModel extends ModelEntity {
     }
 
 
-    public void movePlayer(String direction) {
+    /*public void movePlayer(String direction) {
         movesMade++;
         checkWin();
         switch (direction) {
@@ -135,7 +136,95 @@ public class MapModel extends ModelEntity {
             default -> throw new IllegalStateException("Unexpected value: " + direction);
         }
         firePropertyChange("updateScoreView");
+    }*/
+
+    public boolean movePlayer(String direction) {
+        int moveToThisTile;
+        int moveBoxToNextTile;
+        int moveToX = 0;
+        int moveToY = 0;
+        switch (direction) {
+            case "up" -> {
+                moveToThisTile = mapGridInt.get(playerY - 1).get(playerX);
+                moveToY = -1;
+            }
+            case "down" -> {
+                moveToThisTile = mapGridInt.get(playerY + 1).get(playerX);
+                moveToY = 1;
+            }
+            case "left" -> {
+                moveToThisTile = mapGridInt.get(playerY).get(playerX - 1);
+                moveToX = -1;
+            }
+            case "right" -> {
+                moveToThisTile = mapGridInt.get(playerY).get(playerX + 1);
+                moveToX = 1;
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + direction);
+        }
+
+        if (isMovable(moveToThisTile)) {
+            if(moveToThisTile == 2 || moveToThisTile == 3){
+                int moveBoxToNextTileY;
+                int moveBoxToNextTileX;
+                switch (direction) {
+                    case "up" -> {
+                        moveBoxToNextTileX = playerX;
+                        moveBoxToNextTileY = playerY - 2;
+                        moveBoxToNextTile = mapGridInt.get(playerY - 2).get(playerX);
+                    }
+                    case "down" -> {
+                        moveBoxToNextTileX = playerX;
+                        moveBoxToNextTileY = playerY +2;
+                        moveBoxToNextTile = mapGridInt.get(playerY + 2).get(playerX);
+                    }
+                    case "left" -> {
+                        moveBoxToNextTileX = playerX -2;
+                        moveBoxToNextTileY = playerY ;
+                        moveBoxToNextTile = mapGridInt.get(playerY).get(playerX - 2);
+                    }
+                    case "right" -> {
+                        moveBoxToNextTileX = playerX +2;
+                        moveBoxToNextTileY = playerY ;
+                        moveBoxToNextTile = mapGridInt.get(playerY).get(playerX + 2);
+                    }
+                    default -> throw new IllegalStateException("Unexpected value: " + direction);
+                }
+                if(isMovable(moveBoxToNextTile) && moveBoxToNextTile != 2 && moveBoxToNextTile != 3 ){
+                       if (moveToThisTile == 3) {
+                           mapGridInt.get(playerY+moveToY).set(playerX+moveToX, 1);
+                           mapGridInt.get(moveBoxToNextTileY).set(moveBoxToNextTileX, 2);
+                           setIncreaseBoxesUntilWin();
+                       } else {
+                           if (moveBoxToNextTile == 1) {
+                               mapGridInt.get(playerY+moveToY).set(playerX+moveToX, 0);
+                               mapGridInt.get(moveBoxToNextTileY).set(moveBoxToNextTileX, 3);
+                               setDecreaseBoxesUntilWin();
+                               checkWin();
+                           } else {
+                               mapGridInt.get(playerY+moveToY).set(playerX+moveToX, 0);
+                               mapGridInt.get(moveBoxToNextTileY).set(moveBoxToNextTileX, 2);
+                           }
+                       }
+                }else {
+                    return false;
+                }
+            }
+            movesMade++;
+            playerY += moveToY;
+            playerX += moveToX;
+            firePropertyChange("updateScoreView");
+            return true;
+        }else{
+            return false;
+        }
     }
+    ArrayList<Integer> intArr = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
+
+    private boolean isMovable(int moveToThisTile) {
+        return intArr.contains(moveToThisTile);
+    }
+
 
     public void restart(int newMapId) {
         getMapFromFile(newMapId);

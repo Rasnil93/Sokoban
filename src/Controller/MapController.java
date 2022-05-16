@@ -45,26 +45,26 @@ public class MapController extends KeyAdapter implements PropertyChangeListener 
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("up")) {
             if (mapModel.getPlayerY() > 0) {
-                if (mapView.movePlayer("up")) {
-                    mapModel.movePlayer("up");
+                if (mapModel.movePlayer("up")) {
+                    mapView.repaintMap();
                 }
             }
         }else if (evt.getPropertyName().equals("down")) {
             if (mapModel.getPlayerY() < mapModel.getHeightOfMap() - 1) {
-                if (mapView.movePlayer("down")) {
-                    mapModel.movePlayer("down");
+                if (mapModel.movePlayer("down")) {
+                    mapView.repaintMap();
                 }
             }
         }else if (evt.getPropertyName().equals("left")) {
             if (mapModel.getPlayerX() > 0) {
-                if (mapView.movePlayer("left")) {
-                    mapModel.movePlayer("left");
+                if (mapModel.movePlayer("left")) {
+                    mapView.repaintMap();
                 }
             }
         }else if (evt.getPropertyName().equals("right")) {
             if (mapModel.getPlayerX() < mapModel.getWidthOfMap() - 1) {
-                if (mapView.movePlayer("right")) {
-                    mapModel.movePlayer("right");
+                if (mapModel.movePlayer("right")) {
+                    mapView.drawMap(mapModel.getMap());
                 }
             }
         }else if (evt.getPropertyName().equals("restart")) {
