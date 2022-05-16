@@ -105,38 +105,40 @@ public class MapModel extends ModelEntity {
     }
 
     public void movePlayerUp() {
-        firePropertyChange("up");
-        firePropertyChange("focusFrame");
+        if (playerY > 0) {
+            if (movePlayer("up")){
+                firePropertyChange("upAccepted");
+            }
+            firePropertyChange("focusFrame");
+        }
     }
 
     public void movePlayerDown() {
-        firePropertyChange("down");
-        firePropertyChange("focusFrame");
+        if (playerY < heightOfMap - 1) {
+            if (movePlayer("down")){
+                firePropertyChange("downAccepted");
+            }
+            firePropertyChange("focusFrame");
+        }
     }
 
     public void movePlayerLeft() {
-        firePropertyChange("left");
-        firePropertyChange("focusFrame");
+        if (playerX > 0) {
+            if (movePlayer("left")){
+                firePropertyChange("leftAccepted");
+            }
+            firePropertyChange("focusFrame");
+        }
     }
 
     public void movePlayerRight() {
-        firePropertyChange("right");
-        firePropertyChange("focusFrame");
-    }
-
-
-    /*public void movePlayer(String direction) {
-        movesMade++;
-        checkWin();
-        switch (direction) {
-            case "up" -> playerY--;
-            case "down" -> playerY++;
-            case "left" -> playerX--;
-            case "right" -> playerX++;
-            default -> throw new IllegalStateException("Unexpected value: " + direction);
+        if (playerX < widthOfMap - 1) {
+            if (movePlayer("right")){
+                firePropertyChange("rightAccepted");
+            }
+            firePropertyChange("focusFrame");
         }
-        firePropertyChange("updateScoreView");
-    }*/
+    }
 
     public boolean movePlayer(String direction) {
         int moveToThisTile;

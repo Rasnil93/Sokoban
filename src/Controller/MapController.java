@@ -25,48 +25,32 @@ public class MapController extends KeyAdapter implements PropertyChangeListener 
 
         if(code == KeyEvent.VK_W) {
             up = true;
-            propertyChange(new PropertyChangeEvent(this, "up", false, true));
+            mapModel.movePlayerUp();
         }
         if(code == KeyEvent.VK_A) {
             left = true;
-            propertyChange(new PropertyChangeEvent(this, "left", false, true));
+            mapModel.movePlayerLeft();
         }
         if(code == KeyEvent.VK_D) {
             right = true;
-            propertyChange(new PropertyChangeEvent(this, "right", false, true));
+            mapModel.movePlayerRight();
         }
         if(code == KeyEvent.VK_S) {
             down = true;
-            propertyChange(new PropertyChangeEvent(this, "down", false, true));
+            mapModel.movePlayerDown();
         }
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("up")) {
-            if (mapModel.getPlayerY() > 0) {
-                if (mapModel.movePlayer("up")) {
-                    mapView.repaintMap();
-                }
-            }
-        }else if (evt.getPropertyName().equals("down")) {
-            if (mapModel.getPlayerY() < mapModel.getHeightOfMap() - 1) {
-                if (mapModel.movePlayer("down")) {
-                    mapView.repaintMap();
-                }
-            }
-        }else if (evt.getPropertyName().equals("left")) {
-            if (mapModel.getPlayerX() > 0) {
-                if (mapModel.movePlayer("left")) {
-                    mapView.repaintMap();
-                }
-            }
-        }else if (evt.getPropertyName().equals("right")) {
-            if (mapModel.getPlayerX() < mapModel.getWidthOfMap() - 1) {
-                if (mapModel.movePlayer("right")) {
-                    mapView.drawMap(mapModel.getMap());
-                }
-            }
+        if (evt.getPropertyName().equals("upAccepted")) {
+            mapView.repaintMap();
+        }else if (evt.getPropertyName().equals("downAccepted")) {
+            mapView.repaintMap();
+        }else if (evt.getPropertyName().equals("leftAccepted")) {
+            mapView.repaintMap();
+        }else if (evt.getPropertyName().equals("rightAccepted")) {
+            mapView.repaintMap();
         }else if (evt.getPropertyName().equals("restart")) {
             mapView.restartMap();
         }else if (evt.getPropertyName().equals("placePlayer")) {
