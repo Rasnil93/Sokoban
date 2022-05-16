@@ -13,10 +13,20 @@ public class MapModel extends ModelEntity {
     private int boxesUntilWin;
     private int boxesOnMap;
     private int movesMade;
+    private boolean testing;
 
     public MapModel(){
         this.mapID = 0;
         getMapFromFile(mapID);
+        testing = false;
+    }
+
+    public boolean getTesting(){
+        return testing;
+    }
+
+    public void setTesting(boolean testing) {
+        this.testing = testing;
     }
 
     public void getMapFromFile(int level) {
@@ -24,7 +34,14 @@ public class MapModel extends ModelEntity {
             mapGridInt.clear();
         }
         mapGridInt = new ArrayList<>();
-        File file = new File("src/assets/levels/"+ level +".txt");
+        File file;
+
+        if (testing) {
+            file = new File("src/assets/testLevels/"+ level +".txt");
+        }else{
+            file = new File("src/assets/levels/"+ level +".txt");
+        }
+
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             int boxesUntilWin = 0;
@@ -77,7 +94,7 @@ public class MapModel extends ModelEntity {
     }
 
     public void checkWin() {
-        if (boxesUntilWin == 0) {
+        if (boxesUntilWin == 0 && !testing) {
             firePropertyChange("gameWon");
         }
     }
@@ -120,10 +137,10 @@ public class MapModel extends ModelEntity {
         firePropertyChange("updateScoreView");
     }
 
-    public void restart(int mapID) {
-        getMapFromFile(mapID);
+    public void restart(int newMapId) {
+        getMapFromFile(newMapId);
         movesMade = 0;
-        this.mapID = mapID;
+        this.mapID = newMapId;
         firePropertyChange("restart");
     }
 

@@ -29,6 +29,9 @@ public class App extends Game implements PropertyChangeListener {
         return panel;
     }
 
+    public MapModel getMapModel() {
+        return mapModel;
+    }
 
     @Override
     public void init() {

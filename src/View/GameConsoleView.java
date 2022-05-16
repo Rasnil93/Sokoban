@@ -19,7 +19,7 @@ public class GameConsoleView extends JPanel {
         add(new JLabel("Game Console"));
         JLabel scoreValue = new JLabel("0");
         JLabel mapIdLabel = new JLabel("Map ID: ");
-        JLabel scoreLabel = new JLabel("Score: ");
+        JLabel scoreLabel = new JLabel("Moves: ");
         JLabel mapIdValue = new JLabel("0");
         JButton nextMapButton = new JButton("Next Map");
         JButton restartButton = new JButton("Restart");
