@@ -2,6 +2,9 @@ package Model;
 
 import javax.swing.*;
 
+/**
+ * Creates the model for the tile, contains all of the information for the tile
+ */
 public class TileModel {
     private boolean movable;
     private int tileType;
@@ -11,6 +14,10 @@ public class TileModel {
         this.movable = b;
     }
 
+    /**
+     * Sets the image for the tile
+     * @param tileType
+     */
     public void setTileType(int tileType) {
         this.tileType = tileType;
         ImageIcon imgIcon;

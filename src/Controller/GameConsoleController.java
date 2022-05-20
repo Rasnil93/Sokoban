@@ -6,6 +6,10 @@ import View.GameConsoleView;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Creates a controller for the game console. This controller is responsible for handling to show the restart and
+ * next level buttons.
+ */
 public class GameConsoleController implements PropertyChangeListener {
     private GameConsoleView gameConsoleView;
     private MapModel mapModel;

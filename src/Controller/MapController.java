@@ -6,6 +6,9 @@ import View.MapView;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Handles the events from the MapView and MapModel.
+ */
 public class MapController implements PropertyChangeListener {
     private MapModel mapModel;
     private MapView mapView;

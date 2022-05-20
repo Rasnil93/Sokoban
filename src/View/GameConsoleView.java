@@ -5,6 +5,9 @@ import Model.MapModel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Creates the game console view.
+ */
 public class GameConsoleView extends JPanel {
     private MapModel mapModel;
     private JButton restartButton;
@@ -13,6 +16,9 @@ public class GameConsoleView extends JPanel {
     private JLabel mapIdLabel;
     private JLabel youWinLabel;
 
+    /**
+     * Constructor, creates the view for the game console
+     */
     public GameConsoleView(MapModel mapModel) {
         this.mapModel = mapModel;
         setLayout(new FlowLayout());
@@ -40,6 +46,9 @@ public class GameConsoleView extends JPanel {
         this.mapIdLabel = mapIdValue;
     }
 
+    /**
+     * Following methods are used to get the buttons from the view and handles the logic for the buttons
+     */
     public JButton getNextMapButton() {
         return nextMapButton;
     }
@@ -68,6 +77,9 @@ public class GameConsoleView extends JPanel {
         nextMapButton.repaint();
     }
 
+    /**
+     * Following methods are used to update the labels in the view
+     */
     public void updateScoreView() {
         scoreValue.setText(mapModel.getMovesMade()+"");
         scoreValue.repaint();

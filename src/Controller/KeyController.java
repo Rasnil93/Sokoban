@@ -4,8 +4,11 @@ import Model.MapModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
+
+/**
+ * This class is responsible for handling the key events.
+ */
 public class KeyController extends MoveHandler{
 
     public KeyController(MapModel mapModel) {

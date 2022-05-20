@@ -2,6 +2,9 @@ package View;
 
 import javax.swing.*;
 
+/**
+ * Creats a panel with buttons for the game
+ */
 public class ButtonPanelView extends JPanel{
     private JButton buttonUp;
     private JButton buttonDown;

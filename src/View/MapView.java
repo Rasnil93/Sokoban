@@ -6,18 +6,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+
+/**
+ * This class is the view of the map. It is responsible for drawing the map and the players on it.
+ */
 public class MapView extends JPanel{
     private MapModel mapModel;
     private Tile occupiedTile;
     private Tile playerTile;
     private ArrayList<ArrayList<Tile>> mapGrid;
 
+    /**
+     * Constructor of the MapView class.
+     * @param mapModel The model of the map.
+     */
     public MapView(MapModel mapModel) {
         this.mapModel = mapModel;
         drawMap(mapModel.getMap());
         placePlayer();
     }
 
+    /**
+     * This method places the player on the map.
+     */
     public void placePlayer() {
         int playerY = mapModel.getPlayerY();
         int playerX = mapModel.getPlayerX();
@@ -31,6 +42,10 @@ public class MapView extends JPanel{
         mapGrid.get(playerY).get(playerX).setTileImage(playerTile.getTileImage());
     }
 
+    /**
+     * This method draws the map.
+     * @param mapGrid The map to draw.
+     */
     public void drawMap(ArrayList<ArrayList<Integer>> mapGrid) {
         if (mapGrid != null) {
             removeAll();
@@ -55,6 +70,10 @@ public class MapView extends JPanel{
         placePlayer();
     }
 
+    /**
+     * This method updates the map. It is called when the player moves. It removes the player from the old position and
+     * places it on the new position.
+     */
     public void repaintMap() {
         int rows = mapModel.getHeightOfMap();
         int cols = mapModel.getWidthOfMap();
@@ -68,6 +87,10 @@ public class MapView extends JPanel{
         placePlayer();
     }
 
+    /**
+     * This method returns the map.
+     * @return The map.
+     */
     public void restartMap(){
         removeAll();
         drawMap(mapModel.getMap());

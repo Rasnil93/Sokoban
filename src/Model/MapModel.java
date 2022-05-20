@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/*
+MapModel contains all of the game logic, if the player has won and so on. This is where all of the controller gets
+it's new events and data.
+ */
 public class MapModel extends ModelEntity {
     private int mapID;
     private ArrayList<ArrayList<Integer>> mapGridInt;
@@ -17,16 +21,25 @@ public class MapModel extends ModelEntity {
     private int movesMade;
     private boolean testing;
 
+    //get the map and initialize the game map
     public MapModel(){
         this.mapID = 0;
         getMapFromFile(mapID);
         testing = false;
     }
 
+    /*
+    used to be able to get the maps in the testing folder, this variable changes the pathway when you get a new map
+    in the getMapFromFile method
+    */
     public void setTesting(boolean testing) {
         this.testing = testing;
     }
 
+
+    /*
+    Gets the map from a file and sets the height and width of the 2nd array.
+     */
     public void getMapFromFile(int level) {
         if (mapGridInt != null){
             mapGridInt.clear();
@@ -91,6 +104,7 @@ public class MapModel extends ModelEntity {
         return new ArrayList<>(List.copyOf(mapGridInt));
     }
 
+    //when there is no boxes left to move to a winning square, it notifies all of it's observers that the game is won.
     public void checkWin() {
         if (boxesUntilWin == 0 && !testing) {
             firePropertyChange("gameWon");
@@ -101,6 +115,7 @@ public class MapModel extends ModelEntity {
         return movesMade;
     }
 
+    //Notifies the observer to move if possible
     public void movePlayerUp() {
         if (playerY > 0) {
             if (movePlayer("up")){
@@ -110,6 +125,7 @@ public class MapModel extends ModelEntity {
         }
     }
 
+    //Notifies the observer to move if possible
     public void movePlayerDown() {
         if (playerY < heightOfMap - 1) {
             if (movePlayer("down")){
@@ -119,6 +135,7 @@ public class MapModel extends ModelEntity {
         }
     }
 
+    //Notifies the observer to move if possible
     public void movePlayerLeft() {
         if (playerX > 0) {
             if (movePlayer("left")){
@@ -128,6 +145,7 @@ public class MapModel extends ModelEntity {
         }
     }
 
+    //Notifies the observer to move if possible
     public void movePlayerRight() {
         if (playerX < widthOfMap - 1) {
             if (movePlayer("right")){
@@ -137,6 +155,7 @@ public class MapModel extends ModelEntity {
         }
     }
 
+    //move the player in the mapGridInt array and notifies changes to the mapView to repaint
     public boolean movePlayer(String direction) {
         int moveToThisTile;
         int moveBoxToNextTile;
@@ -218,22 +237,27 @@ public class MapModel extends ModelEntity {
             return false;
         }
     }
-    ArrayList<Integer> intArr = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
 
+    //some tiles are not movable, check if the tile is movable
+    ArrayList<Integer> intArr = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
     private boolean isMovable(int moveToThisTile) {
         return intArr.contains(moveToThisTile);
     }
 
+    //You dont want to return the private map, therefore use this function to get the new tiles from the updated mapGridInt
     public int getTileFromMap(int x, int y){
         return mapGridInt.get(x).get(y);
     }
 
+    //Whether a player has won you use this map to zero the scores or to load a new map
     public void restart(int newMapId) {
         getMapFromFile(newMapId);
         movesMade = 0;
         this.mapID = newMapId;
         firePropertyChange("restart");
     }
+
+    //getters and setters for updating information
 
     public int getPlayerY() {
         return playerY;

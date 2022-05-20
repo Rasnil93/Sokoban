@@ -5,6 +5,9 @@ import Model.MapModel;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
+/**
+ * Handels the movement of the player, and the different events that can occur from the user.
+ */
 public abstract class MoveHandler implements KeyListener, ActionListener {
     MapModel mapModel;
 

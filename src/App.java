@@ -6,33 +6,37 @@ import Model.MapModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.EventListener;
 
+//this is where all of the views and game logic creates, the app listens to the main model to make sure it dosent loose focus
 public class App extends Game implements PropertyChangeListener {
+    //the main panel, JPanel that occupies the whole game frame
     private JComponent mainView;
-    private MapModel mapModel;
-    private MoveHandler moveHandler;
 
+    //the main model
+    public MapModel mapModel;
+
+    //constructor to initialize the game
     public App(){
         init();
     }
 
+    //creates the main frame where you add all of the other view too
     @Override
     public JComponent createMainFrame() {
         JPanel panel = new JPanel();
-        panel.setSize(new Dimension(1200, 1200));
+        panel.setSize(new Dimension(800, 600));
         this.mainView = panel;
         return panel;
     }
 
+    //get the mapModel, the mapModel is public but this is a more logical name to get the model
     public MapModel getMapModel() {
         return mapModel;
     }
 
+    //checks if the type of movehandler and set it in it's proper way
     public void setController(MoveHandler moveHandler){
         if(moveHandler.getClass() == KeyController.class){
             super.addKeyListener(moveHandler);
@@ -46,6 +50,8 @@ public class App extends Game implements PropertyChangeListener {
         }
     }
 
+
+    //creates all the view, mapview and so on. Also adds the observers to the main model
     @Override
     public void init() {
 
@@ -57,10 +63,6 @@ public class App extends Game implements PropertyChangeListener {
         //game console
         GameConsoleView gameConsole = new GameConsoleView(mapModel);
         GameConsoleController gameConsoleController = new GameConsoleController(gameConsole, mapModel);
-
-        //buttonPanel
-        //ButtonPanelView buttonPanelView = new ButtonPanelView();
-        //ButtonPanelController buttonPanelController = new ButtonPanelController(buttonPanelView, mapModel);
 
         //add listeners to mapModel
         mapModel.addPropertyChangeListener(mapController);
@@ -75,19 +77,15 @@ public class App extends Game implements PropertyChangeListener {
         this.mapModel = mapModel;
     }
 
-    @Override
-    public void gameWon() {
-        System.out.println("You win!");
-    }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if(evt.getPropertyName().equals("gameWon")){
-            gameWon();
-        }
+        //when we recreate the views, the keylisteners looses focus, and we use this to refocus the screen
         if(evt.getPropertyName().equals("restart")){
             super.reset();
         }
+
+        //When you press the buttons the keylisteners looses focus, therefore we need to refocus the screen
         if (evt.getPropertyName().equals("focusFrame")){
             super.reset();
         }

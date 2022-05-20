@@ -6,6 +6,9 @@ import View.ButtonPanelView;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+/**
+ * Adds the action listeners to the buttons in the button panel.
+ */
 public class ButtonPanelController extends MoveHandler{
     private ButtonPanelView buttonPanelView;
 
