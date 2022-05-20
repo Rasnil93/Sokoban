@@ -1,6 +1,4 @@
-import Controller.ButtonPanelController;
-import Controller.GameConsoleController;
-import Controller.MapController;
+import Controller.*;
 import View.ButtonPanelView;
 import View.GameConsoleView;
 import View.MapView;
@@ -8,14 +6,16 @@ import Model.MapModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.EventListener;
 
 public class App extends Game implements PropertyChangeListener {
     private JComponent mainView;
-    private KeyListener keyListener;
     private MapModel mapModel;
+    private MoveHandler moveHandler;
 
     public App(){
         init();
@@ -33,8 +33,22 @@ public class App extends Game implements PropertyChangeListener {
         return mapModel;
     }
 
+    public void setController(MoveHandler moveHandler){
+        if(moveHandler.getClass() == KeyController.class){
+            super.addKeyListener(moveHandler);
+        }
+        if (moveHandler.getClass() == ButtonPanelController.class){
+            ButtonPanelView buttonPanelView = new ButtonPanelView();
+            ((ButtonPanelController) moveHandler).setButtonPanelView(buttonPanelView);
+            ((ButtonPanelController) moveHandler).setAllActionListeners();
+            mainView.add(buttonPanelView);
+            mainView.revalidate();
+        }
+    }
+
     @Override
     public void init() {
+
         //map
         MapModel mapModel = new MapModel();
         MapView mapView = new MapView(mapModel);
@@ -45,39 +59,25 @@ public class App extends Game implements PropertyChangeListener {
         GameConsoleController gameConsoleController = new GameConsoleController(gameConsole, mapModel);
 
         //buttonPanel
-        ButtonPanelView buttonPanelView = new ButtonPanelView();
-        ButtonPanelController buttonPanelController = new ButtonPanelController(buttonPanelView, mapModel);
+        //ButtonPanelView buttonPanelView = new ButtonPanelView();
+        //ButtonPanelController buttonPanelController = new ButtonPanelController(buttonPanelView, mapModel);
 
         //add listeners to mapModel
         mapModel.addPropertyChangeListener(mapController);
         mapModel.addPropertyChangeListener(gameConsoleController);
         mapModel.addPropertyChangeListener(this);
 
-        //add keylistener to main frame
-        super.addKeyListener(mapController);
-
-        mainView.add(buttonPanelView);
+        //mainView.add(buttonPanelView);
         mainView.add(gameConsole);
         mainView.add(mapView);
         mainView.validate();
 
         this.mapModel = mapModel;
-        this.keyListener = mapController;
-    }
-
-    @Override
-    public void update() {
-        //update the game, check the listeners
     }
 
     @Override
     public void gameWon() {
         System.out.println("You win!");
-    }
-
-    @Override
-    public void gameOver() {
-
     }
 
     @Override

@@ -4,9 +4,7 @@ import java.awt.*;
 abstract class Game extends JFrame implements Runnable {
     public abstract JComponent createMainFrame();
     public abstract void init();
-    public abstract void update();
     public abstract void gameWon();
-    public abstract void gameOver();
 
     public Game() {
         EventQueue.invokeLater(this);

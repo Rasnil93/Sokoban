@@ -49,11 +49,4 @@ public class TileModel {
         return image;
     }
 
-    public int getTileID() {
-        return tileType;
-    }
-
-    public boolean isMovable() {
-        return movable;
-    }
 }

@@ -25,8 +25,7 @@ public class MapView extends JPanel{
             Tile playerTile = new Tile(9);
             this.occupiedTile  = mapGrid.get(playerY).get(playerX);
             this.playerTile = playerTile;
-        }
-        else {
+        } else {
             occupiedTile = mapGrid.get(playerY).get(playerX);
         }
         mapGrid.get(playerY).get(playerX).setTileImage(playerTile.getTileImage());
@@ -59,10 +58,9 @@ public class MapView extends JPanel{
     public void repaintMap() {
         int rows = mapModel.getHeightOfMap();
         int cols = mapModel.getWidthOfMap();
-        ArrayList<ArrayList<Integer>> mapGridInt = mapModel.getMap();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                mapGrid.get(i).get(j).setTileType(mapGridInt.get(i).get(j));
+                mapGrid.get(i).get(j).setTileType(mapModel.getTileFromMap(i, j));
             }
         }
         revalidate();
@@ -73,7 +71,6 @@ public class MapView extends JPanel{
     public void restartMap(){
         removeAll();
         drawMap(mapModel.getMap());
-        placePlayer();
     }
 
 }

@@ -5,7 +5,6 @@ import Model.TileModel;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class Tile extends JLabel {
     private TileModel tileModel;
 
@@ -31,12 +30,5 @@ public class Tile extends JLabel {
 
     public ImageIcon getTileImage() {
         return tileModel.getTileImage();
-    }
-    public int getTileID() {
-        return tileModel.getTileID();
-    }
-
-    public boolean isMovable() {
-        return tileModel.isMovable();
     }
 }

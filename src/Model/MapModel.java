@@ -3,6 +3,7 @@ package Model;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MapModel extends ModelEntity {
     private int mapID;
@@ -20,10 +21,6 @@ public class MapModel extends ModelEntity {
         this.mapID = 0;
         getMapFromFile(mapID);
         testing = false;
-    }
-
-    public boolean getTesting(){
-        return testing;
     }
 
     public void setTesting(boolean testing) {
@@ -91,7 +88,7 @@ public class MapModel extends ModelEntity {
     }
 
     public ArrayList<ArrayList<Integer>> getMap() {
-        return mapGridInt;
+        return new ArrayList<>(List.copyOf(mapGridInt));
     }
 
     public void checkWin() {
@@ -227,6 +224,9 @@ public class MapModel extends ModelEntity {
         return intArr.contains(moveToThisTile);
     }
 
+    public int getTileFromMap(int x, int y){
+        return mapGridInt.get(x).get(y);
+    }
 
     public void restart(int newMapId) {
         getMapFromFile(newMapId);
