@@ -38,7 +38,8 @@ public class MapModel extends ModelEntity {
 
 
     /*
-    Gets the map from a file and sets the height and width of the 2nd array.
+    Gets the map from a file and sets the height and width of the 2nd array, then sets the player's position and
+    the boxes until win and the boxes on the map.
      */
     public void getMapFromFile(int level) {
         if (mapGridInt != null){
