@@ -7,7 +7,7 @@ import java.awt.*;
 
 //Tile is the view of a tile in the mapView
 public class Tile extends JLabel {
-    private TileModel tileModel;
+    private final TileModel tileModel;
 
     //Constructor of the Tile, it takes a TileModel as parameter and sets the view of the tile
     public Tile(int tileType) {

@@ -21,11 +21,11 @@ public class MapModel extends ModelEntity {
     private int movesMade;
     private boolean testing;
 
-    //get the map and initialize the game map
+    //get the map and initialize the game map also sets the testing mode to false because it should only be used in JUnit
     public MapModel(){
         this.mapID = 0;
-        getMapFromFile(mapID);
         testing = false;
+        getMapFromFile(mapID);
     }
 
     /*
@@ -240,7 +240,7 @@ public class MapModel extends ModelEntity {
     }
 
     //some tiles are not movable, check if the tile is movable
-    ArrayList<Integer> intArr = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
+    private final ArrayList<Integer> intArr = new ArrayList<Integer>(Arrays.asList(0,1,2,3));
     private boolean isMovable(int moveToThisTile) {
         return intArr.contains(moveToThisTile);
     }

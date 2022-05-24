@@ -11,8 +11,7 @@ import java.util.ArrayList;
  * This class is the view of the map. It is responsible for drawing the map and the players on it.
  */
 public class MapView extends JPanel{
-    private MapModel mapModel;
-    private Tile occupiedTile;
+    private final MapModel mapModel;
     private Tile playerTile;
     private ArrayList<ArrayList<Tile>> mapGrid;
 
@@ -27,17 +26,14 @@ public class MapView extends JPanel{
     }
 
     /**
-     * This method places the player on the map.
+     * This method places the player on the map. gets it data from mapModel.
      */
     public void placePlayer() {
         int playerY = mapModel.getPlayerY();
         int playerX = mapModel.getPlayerX();
         if (playerTile == null){
             Tile playerTile = new Tile(9);
-            this.occupiedTile  = mapGrid.get(playerY).get(playerX);
             this.playerTile = playerTile;
-        } else {
-            occupiedTile = mapGrid.get(playerY).get(playerX);
         }
         mapGrid.get(playerY).get(playerX).setTileImage(playerTile.getTileImage());
     }
