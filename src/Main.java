@@ -3,7 +3,7 @@ import Controller.KeyController;
 
 public class Main {
     public static void main(String[] args) {
-        //create the sokoban app
+        //create the sokoban application
         App app = new App();
 
         //choose what listeners and events you want to use to move the player
